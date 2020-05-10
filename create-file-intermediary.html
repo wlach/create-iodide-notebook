@@ -1,0 +1,12 @@
+<html>
+  <body>
+    Redirecting to {server}...
+    <form action="http://{server}/from-template/" method="POST" id="iomd-form">
+      <input name="iomd" value={iomd}>{iomd}</input>
+      <input name="file-{filename}" value="{content}"></input>
+    </form>
+  </body>
+  <script>
+    document.getElementById('iomd-form').submit()
+  </script>
+</html>
