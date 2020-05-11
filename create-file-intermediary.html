@@ -1,12 +1,18 @@
 <html>
   <body>
     Redirecting to {server}...
-    <form action="http://{server}/from-template/" method="POST" id="iomd-form">
-      <input name="iomd" value={iomd}>{iomd}</input>
-      <input name="file-{filename}" value="{content}"></input>
+    <form style="display: none;" action="http://{server}/from-template/" method="POST" enctype="multipart/form-data" id="iomd-form">
+      <input name="iomd" value={iomd}></input>
+      <input name="file" type="file"></input>
     </form>
+    <script id="file-content" type="text/plain">{content}</script>
   </body>
   <script>
+    const dT = new DataTransfer();
+    dT.items.add(
+      new File([Uint8Array.from(atob(document.getElementById('file-content').innerHTML), c => c.charCodeAt(0))], "{filename}")
+    );
+    document.getElementsByName('file')[0].files = dT.files;
     document.getElementById('iomd-form').submit()
   </script>
 </html>
